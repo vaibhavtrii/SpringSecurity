@@ -1,4 +1,4 @@
-package POJO;
+package com.springSecurity.springSecurity.POJO;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -19,6 +19,8 @@ public class Person implements UserDetails {
             joinColumns = @JoinColumn(name = "person_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     List<GrantedAuthorityImpl> grantedAuthorities;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String contact;
@@ -33,7 +35,12 @@ public class Person implements UserDetails {
 
     @Override
     public String getUsername() {
-        return "";
+        return email;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
     }
 
 

@@ -1,4 +1,4 @@
-package POJO;
+package com.springSecurity.springSecurity.POJO;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

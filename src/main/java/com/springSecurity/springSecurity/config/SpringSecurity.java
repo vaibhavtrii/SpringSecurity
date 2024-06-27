@@ -1,4 +1,4 @@
-package config;
+package com.springSecurity.springSecurity.config;
 
 
 import lombok.RequiredArgsConstructor;
@@ -26,14 +26,14 @@ class SpringSecurity {
     private final UserDetailsService userDetailsService;
 
     @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/person/").anonymous()
+                        .requestMatchers("/person/", "/person/get/*").anonymous()
                         .requestMatchers("/person/save").anonymous()
                         .requestMatchers("/person/update").permitAll()
-                        .requestMatchers("/person/delete").hasRole("ADMIN")
+                        .requestMatchers("/person/delete/*").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults());
         return http.build();
@@ -49,7 +49,7 @@ class SpringSecurity {
     }
 
     @Bean
-    private PasswordEncoder passwordEncoder() {
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
